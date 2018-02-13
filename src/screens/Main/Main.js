@@ -21,33 +21,47 @@ class MainScreen extends Component {
 
 const AppTabNavigator = TabNavigator({
 
-        HomeTab:{
+        mainFrag:{
             screen:mainFrag,
+            navigationOptions:{
+                title:'熱門樂譜'
 
+            }
         },
-        SingerListTab:{
+        singerFrag:{
             screen:singerFrag,
-        },
-        SearchTab:{
+            navigationOptions:{
+                title:'歌手選曲'
+            }
+        }
+        searchFrag:{
             screen:searchFrag,
-
+            navigationOptions:{
+                title:'進階搜尋'
+            }
         },
-        SaveTab:{
+        savedSongFrag:{
             screen:savedSongFrag,
-
+            navigationOptions:{
+                title:'我的收藏'
+            }
         },
-        StudentTab:{
+        studentFrag:{
             screen:studentFrag,
-
-        },},
-    {
+            navigationOptions:{
+                title:'學生專區'
+            }
+        },
+    }, {
         tabBarOptions: {
+            scrollEnabled: true,
+            activeTintColor: '#e91e63',
             // activeTintColor: 'dodgerblue',
         },
+        'lazy': true,
         tabBarComponent: TabBarBottom,
         tabBarPosition: 'bottom',
         swipeEnabled: false,
-
     });
 
 

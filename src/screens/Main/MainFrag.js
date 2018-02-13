@@ -1,7 +1,7 @@
 'use strict';
 // i love hitting J
 import React from 'react';
-import {View,Text,
+import {View,Text,StyleSheet,
 } from 'react-native';
 
 export default class mainFrag extends React.Component<{}> {
@@ -17,8 +17,9 @@ export default class mainFrag extends React.Component<{}> {
 };
 const styles = StyleSheet.create({
     container: {
-        flex: 1
-
+        flex: 1,
+        alignItems:'center',
+        justifyContent:'center',
     },
 
 });

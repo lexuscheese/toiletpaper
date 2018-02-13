@@ -2,21 +2,29 @@
 
 import React from 'react';
 import {View,
-    Text,
+    Text,StyleSheet,
 } from 'react-native';
 
 
 export default class searchFrag extends React.Component<{}> {
     render() {
         return (
-            <View>
+            <View style = {styles.container}>
                 <Text>
-                    MainFrag
+                    SearchFrag
                 </Text>
             </View>
         );
     }
 };
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems:'center',
+        justifyContent:'center',
+    },
+
+});
 
 
 
