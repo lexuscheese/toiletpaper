@@ -1,9 +1,6 @@
 import React from 'react';
 import {
-    View,
-    Image,
-    Dimensions,
-    Keyboard
+    Text,
 } from 'react-native';
 
 export default class savedSongFrag extends Component<{}> {
@@ -18,10 +15,3 @@ export default class savedSongFrag extends Component<{}> {
 
 
 
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-
-});

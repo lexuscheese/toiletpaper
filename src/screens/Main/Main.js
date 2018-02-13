@@ -1,27 +1,21 @@
 import React, { Component } from "react";
-import {
-    View,
-    Text,
-    StyleSheet
-} from "react-native";
-import * as Screens from '../index';
-import {TabNavigator, TabView, TabBarBottom} from 'react-navigation'
-import mainFrag from "./MainFrag";
+import {TabNavigator, TabBarBottom} from 'react-navigation'
+
 import singerFrag from "../Singer/SingerFrag";
 import searchFrag from "../Search/SearchFrag";
 import savedSongFrag from "../SavedSong/SavedSongFrag";
 import studentFrag from "../Other/StudentFrag";
+import mainFrag from "./MainFrag";
 
 
 class MainScreen extends Component {
-
     render() {
         return (
             <AppTabNavigator/>
         );
     }
 }
-export default MainScreen;
+
 
 const AppTabNavigator = TabNavigator({
 
@@ -46,7 +40,7 @@ const AppTabNavigator = TabNavigator({
         },},
     {
         tabBarOptions: {
-            activeTintColor: 'dodgerblue',
+            // activeTintColor: 'dodgerblue',
         },
         tabBarComponent: TabBarBottom,
         tabBarPosition: 'bottom',
@@ -54,12 +48,6 @@ const AppTabNavigator = TabNavigator({
 
     });
 
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center'
-    }
 
-});
 
+export default MainScreen;

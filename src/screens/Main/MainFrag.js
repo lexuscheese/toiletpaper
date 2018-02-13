@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    View,
-    Image,
-    Dimensions,
-    Keyboard
+import {Text,
 } from 'react-native';
 
 export default class mainFrag extends Component<{}> {
@@ -15,13 +11,3 @@ export default class mainFrag extends Component<{}> {
         );
     }
 };
-
-
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-
-});
