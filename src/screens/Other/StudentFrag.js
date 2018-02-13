@@ -6,11 +6,11 @@ import {
     Keyboard
 } from 'react-native';
 
-export default class StudentFrag extends Component<{}> {
+export default class studentFrag extends Component<{}> {
     render() {
         return (
             <Text>
-                Search Page
+                StudentFrag
             </Text>
         );
     }

@@ -6,7 +6,7 @@ import {
     Keyboard
 } from 'react-native';
 
-export default class SingerFrag extends Component<{}> {
+export default class singerFrag extends Component<{}> {
     render() {
         return (
             <Text>

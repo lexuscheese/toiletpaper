@@ -6,7 +6,7 @@ import {
     Keyboard
 } from 'react-native';
 
-export default class SearchFrag extends Component<{}> {
+export default class searchFrag extends Component<{}> {
     render() {
         return (
             <Text>
