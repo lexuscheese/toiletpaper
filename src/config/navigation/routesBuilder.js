@@ -31,7 +31,7 @@ let flatRoutes = {};
 
 let ThemedNavigationBar = withRkTheme(NavBar);
 
-const DrawerRoutes = Object.keys(main).reduce((routes, name) => {
+const TagRoutes = Object.keys(main).reduce((routes, name) => {
     let stack_name = name;
     routes[stack_name] = {
         name: stack_name,
@@ -51,7 +51,6 @@ const DrawerRoutes = Object.keys(main).reduce((routes, name) => {
     return routes;
 }, {});
 
-export const AppRoutes = DrawerRoutes;
-export const LoginRoutes = _.find(MainRoutes, {id: 'LoginMenu'}).children;
+export const AppRoutes = TagRoutes;
 //add routes here
 

@@ -18,7 +18,9 @@ import {
 } from 'react-native';
 
 const stack = StackNavigator({
-    Main: {
-        screen: Screens.Main
+    Home: {
+        screen: TabNavigator({
+                ...AppRoutes,
+            })
     }
 });

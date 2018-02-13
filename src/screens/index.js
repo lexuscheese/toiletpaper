@@ -4,4 +4,5 @@ export * from './Other';
 export * from './SavedSong';
 export * from './Search';
 export * from './Song';
-
+export * from './Singer';
+export * from './Main';
