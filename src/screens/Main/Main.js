@@ -1,3 +1,5 @@
+'use strict';
+
 import React, { Component } from "react";
 import {TabNavigator, TabBarBottom} from 'react-navigation'
 

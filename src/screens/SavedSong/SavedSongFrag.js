@@ -1,14 +1,18 @@
+'use strict';
+
 import React from 'react';
-import {
+import {View,
     Text,
 } from 'react-native';
 
-export default class savedSongFrag extends Component<{}> {
+export default class savedSongFrag extends React.Component<{}> {
     render() {
         return (
-            <Text>
-                SavedSong
-            </Text>
+            <View>
+                <Text>
+                    MainFrag
+                </Text>
+            </View>
         );
     }
 };
