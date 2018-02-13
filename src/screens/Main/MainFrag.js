@@ -1,5 +1,5 @@
 'use strict';
-
+// i love hitting J
 import React from 'react';
 import {View,Text,
 } from 'react-native';
