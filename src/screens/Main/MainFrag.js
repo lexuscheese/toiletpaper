@@ -3,7 +3,6 @@
 import React from 'react';
 import {View,Text,StyleSheet,
 } from 'react-native';
-import ViewPager from 'react-native-viewpager';
 const dataSource = [
     {'img':'http://www.19chord.com/frontpage/one.JPG'},
     {'img':'http://www.19chord.com/frontpage/two.JPG'},
@@ -12,7 +11,7 @@ const dataSource = [
     {'img':'http://www.19chord.com/frontpage/five.JPG'},
 ];
 
-export default class mainFrag extends React.Component<{}> {
+export default class mainFrag extends React.Component {
     render() {
         return (
             <View style = {styles.container}>
