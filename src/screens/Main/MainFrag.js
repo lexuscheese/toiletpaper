@@ -3,6 +3,7 @@
 import React from 'react';
 import {View,Text,StyleSheet,
 } from 'react-native';
+import Swiper from 'react-native-swiper';
 const dataSource = [
     {'img':'http://www.19chord.com/frontpage/one.JPG'},
     {'img':'http://www.19chord.com/frontpage/two.JPG'},
