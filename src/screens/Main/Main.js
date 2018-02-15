@@ -33,7 +33,7 @@ const AppTabNavigator = TabNavigator({
             navigationOptions:{
                 title:'歌手選曲'
             }
-        }
+        },
         searchFrag:{
             screen:searchFrag,
             navigationOptions:{
@@ -55,8 +55,7 @@ const AppTabNavigator = TabNavigator({
     }, {
         tabBarOptions: {
             scrollEnabled: true,
-            activeTintColor: '#e91e63',
-            // activeTintColor: 'dodgerblue',
+            activeTintColor: '#580000',
         },
         'lazy': true,
         tabBarComponent: TabBarBottom,

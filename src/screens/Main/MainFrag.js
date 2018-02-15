@@ -1,8 +1,16 @@
 'use strict';
-// i love hitting J
+
 import React from 'react';
 import {View,Text,StyleSheet,
 } from 'react-native';
+import ViewPager from 'react-native-viewpager';
+const dataSource = [
+    {'img':'http://www.19chord.com/frontpage/one.JPG'},
+    {'img':'http://www.19chord.com/frontpage/two.JPG'},
+    {'img':'http://www.19chord.com/frontpage/three.JPG'},
+    {'img':'http://www.19chord.com/frontpage/four.JPG'},
+    {'img':'http://www.19chord.com/frontpage/five.JPG'},
+];
 
 export default class mainFrag extends React.Component<{}> {
     render() {
