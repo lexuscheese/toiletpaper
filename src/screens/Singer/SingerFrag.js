@@ -4,7 +4,7 @@ import React from 'react';
 import {
     View,
     Text, StyleSheet, Image, Button,
-    TouchableHighlight,
+    TouchableHighlight,Dimensions,
 } from 'react-native';
 
 export default class singerFrag extends React.Component {
@@ -51,10 +51,11 @@ export default class singerFrag extends React.Component {
                 {this.state.link.map((link, index) => {
                     return (
                         <TouchableHighlight
+                            key={index}
                             style={styles.button}
                             onPress={this.onPressButton(link.gender)}>
                             <Image style={styles.advertisementContent}
-                                   source={{uri: link.pic}}/>
+                                   source={link.pic}/>
                         </TouchableHighlight>
                     );
                 })}
@@ -78,11 +79,10 @@ const styles = StyleSheet.create({
         height: undefined
     },
     button: {
-        flex: 2,
         alignItems: 'center',
         justifyContent: 'center',
         width: Dimensions.get('window').width - 10,
-        height: 180,
+        height: Dimensions.get('window').height/4,
     },
 
 });
