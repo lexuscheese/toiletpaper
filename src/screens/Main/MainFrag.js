@@ -8,18 +8,10 @@ import {
     Text, TextInput, Alert, RefreshControl,
     View, Dimensions, ListView, Image
 } from 'react-native';
-import Swiper from 'react-native-swiper';
-const dataSource = [
-    {'img':'http://www.19chord.com/frontpage/one.JPG'},
-    {'img':'http://www.19chord.com/frontpage/two.JPG'},
-    {'img':'http://www.19chord.com/frontpage/three.JPG'},
-    {'img':'http://www.19chord.com/frontpage/four.JPG'},
-    {'img':'http://www.19chord.com/frontpage/five.JPG'},
-];
 const circleSize = 8;
 const circleMargin = 5;
 
-export default class mainFrag extends React.Component<{}> {
+export default class mainFrag extends React.Component {
 
     _renderRow = (rowData, sectionID, rowID) => {
         return (
@@ -49,14 +41,21 @@ export default class mainFrag extends React.Component<{}> {
         this.state = {
             advertisements: [
                 {
-                    url: 'https://www.gettyimages.no/gi-resources/images/Homepage/Hero/US/SEP2016/prestige-476863311.jpg'
+                    url: 'http://www.19chord.com/frontpage/one.JPG'
                 },
                 {
-                    url: 'https://imagejournal.org/wp-content/uploads/bb-plugin/cache/23466317216_b99485ba14_o-panorama.jpg'
+                    url: 'http://www.19chord.com/frontpage/two.JPG'
                 },
                 {
-                    url: 'http://demo.qodeinteractive.com/passage/wp-content/uploads/2013/07/revolution-05-center.jpg'
-                }
+                    url: 'http://www.19chord.com/frontpage/three.JPG'
+                },
+                {
+                    url: 'http://www.19chord.com/frontpage/four.JPG'
+                },
+                {
+                    url: 'http://www.19chord.com/frontpage/five.JPG'
+                },
+
             ],
             currentPage: 0,
             // dataSource: ds.cloneWithRows([
@@ -99,7 +98,7 @@ export default class mainFrag extends React.Component<{}> {
         var {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
-                <StatusBar backgroundColor={'blue'}
+                <StatusBar backgroundColor={'#580000'}
                            barStyle={'default'}
                            networkActivityIndicatorVisable={true}
                 />
@@ -233,7 +232,6 @@ const styles = StyleSheet.create({
     searchBar: {
         marginTop: Platform.OS === 'ios' ? 0 : 0,
         height: 40,
-
         flexDirection: 'row'
     },
     input: {
