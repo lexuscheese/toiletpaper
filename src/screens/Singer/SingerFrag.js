@@ -6,7 +6,7 @@ import {
     Text, StyleSheet, Image, Button,
 } from 'react-native';
 
-export default class singerFrag extends React.Component<{}> {
+export default class singerFrag extends React.Component {
     render() {
         return (
             <View style = {styles.container}>
