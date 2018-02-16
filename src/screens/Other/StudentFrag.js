@@ -1,17 +1,18 @@
 'use strict';
 
 import React from 'react';
-import {View,
-    Text,StyleSheet,
+import {
+    View,
+    Text, StyleSheet, Image,
 } from 'react-native';
 
 export default class studentFrag extends React.Component<{}> {
     render() {
         return (
             <View style = {styles.container}>
-                <Text>
-                    StudentFrag
-                </Text>
+                <Image source={require('../../assets/images/classroom.jpg')} style={styles.backgroundImage} />
+
+
             </View>
         );
     }
@@ -21,6 +22,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems:'center',
         justifyContent:'center',
+
     },
+    backgroundImage:{
+        flex: 1,
+        alignSelf: 'stretch',
+        width: undefined,
+        height: undefined
+    }
 
 });
