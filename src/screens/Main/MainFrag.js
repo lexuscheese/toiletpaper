@@ -110,8 +110,8 @@ export default class mainFrag extends React.Component<{}> {
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                         pagingEnabled={true}
-                        onScrollEndDrag={this._handleScroll}
-                        scrollEventThrottle={16}
+                        // onScrollEndDrag={this._handleScroll}
+                        // scrollEventThrottle={16}
 
                     >{this.state.advertisements.map((advertisement, index) => {
                         return (
