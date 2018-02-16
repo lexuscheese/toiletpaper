@@ -126,7 +126,8 @@ export default class mainFrag extends React.Component {
                         styles.indicator, {
                             left: left
                         }
-                    ]}>{this.state.advertisements.map((advertisement, index) => {
+                    ]}>
+                        {this.state.advertisements.map((advertisement, index) => {
                         return (<View
                             key={index}
                             style={(index === this.state.currentPage) ? styles.circleSelected : styles.circle}

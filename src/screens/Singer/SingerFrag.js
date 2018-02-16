@@ -78,8 +78,11 @@ const styles = StyleSheet.create({
         height: undefined
     },
     button: {
-        width: 50,
-        height: 50,
+        flex: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: Dimensions.get('window').width - 10,
+        height: 180,
     },
 
 });
