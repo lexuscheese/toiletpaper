@@ -175,7 +175,7 @@ export default class mainFrag extends React.Component {
         this.interval = setInterval(() => {
             var nextPage = this.state.currentPage + 1;
 
-            if (nextPage >= 3) {
+            if (nextPage >= this.state.advertisements.length) {
                 nextPage = 0;
             }
             this.setState({currentPage: nextPage});

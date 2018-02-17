@@ -38,12 +38,13 @@ export default class singerFrag extends React.Component {
 
 
     onPressButton = (gender)=> {
-        console.log("Pressed Gender: "+gender+"!");
+
     };
 
     render() {
         return (
-            <View style={styles.container}>
+            <View source={require('../../assets/images/singer.jpg')}
+                  style={styles.backgroundImage}>
                 <Image
                     source={require('../../assets/images/singer.jpg')}
                     style={styles.backgroundImage}>
@@ -53,9 +54,14 @@ export default class singerFrag extends React.Component {
                         <TouchableHighlight
                             key={index}
                             style={styles.button}
-                            onPress={this.onPressButton(link.gender)}>
-                            <Image style={styles.advertisementContent}
-                                   source={link.pic}/>
+                            onPress={
+                                ()=>{
+                                    console.log("Pressed Gender: "+link.gender+"！");
+                                }
+                            }>
+                            <Image
+                                style={styles.button}
+                                source={link.pic}/>
                         </TouchableHighlight>
                     );
                 })}
@@ -82,7 +88,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: Dimensions.get('window').width - 10,
-        height: Dimensions.get('window').height/4,
+        height: Dimensions.get('window').height/10,
     },
 
 });
