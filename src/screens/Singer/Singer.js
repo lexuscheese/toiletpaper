@@ -9,12 +9,14 @@ import {View,
 export default class singer extends React.Component<{}> {
     constructor(props) {
         super(props);
+        this.state={
+        }
     }
     render() {
         return (
             <View style = {styles.container}>
                 <Text>
-                    Singer Page in +{this.state.navigator.params}!
+                    {this.props.navigation.state.params.gender}
                 </Text>
             </View>
         );

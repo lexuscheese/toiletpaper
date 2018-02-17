@@ -39,7 +39,6 @@ export default class singerFrag extends React.Component {
 
 
     render() {
-        var {navigate} = this.props.navigation;
         return (
             <ImageBackground
                 source={require('../../assets/images/singer.jpg')}
@@ -54,7 +53,7 @@ export default class singerFrag extends React.Component {
                                 ()=>{
                                     const gender = link.gender;
                                     console.log("Pressed Gender: "+gender);
-                                    navigate("Singer", {gender});
+                                    this.props.navigation.navigate("SingerList", {gender},);
                                 }
                             }>
                             <Image
