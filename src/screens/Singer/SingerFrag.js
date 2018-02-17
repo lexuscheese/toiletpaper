@@ -4,7 +4,7 @@ import React from 'react';
 import {
     View,
     Text, StyleSheet, Image, Button,
-    TouchableHighlight,Dimensions,
+    TouchableHighlight,Dimensions,ImageBackground,
 } from 'react-native';
 
 export default class singerFrag extends React.Component {
@@ -37,18 +37,14 @@ export default class singerFrag extends React.Component {
     }
 
 
-    onPressButton = (gender)=> {
-
-    };
 
     render() {
+        var {navigate} = this.props.navigation;
         return (
-            <View source={require('../../assets/images/singer.jpg')}
-                  style={styles.backgroundImage}>
-                <Image
-                    source={require('../../assets/images/singer.jpg')}
-                    style={styles.backgroundImage}>
-                </Image>
+            <ImageBackground
+                source={require('../../assets/images/singer.jpg')}
+                style={styles.container}>
+
                 {this.state.link.map((link, index) => {
                     return (
                         <TouchableHighlight
@@ -56,16 +52,19 @@ export default class singerFrag extends React.Component {
                             style={styles.button}
                             onPress={
                                 ()=>{
-                                    console.log("Pressed Gender: "+link.gender+"！");
+                                    const gender = link.gender;
+                                    console.log("Pressed Gender: "+gender);
+                                    navigate("Singer", {gender});
                                 }
                             }>
                             <Image
-                                style={styles.button}
+                                resizeMode="contain"
+                                style={styles.image}
                                 source={link.pic}/>
                         </TouchableHighlight>
                     );
                 })}
-            </View>
+            </ImageBackground>
         );
     }
 };
@@ -74,21 +73,18 @@ export default class singerFrag extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+    },
+    button:{
+        flex:1,
+        alignItems: 'stretch',
         justifyContent: 'center',
-
     },
-    backgroundImage: {
-        flex: 1,
-        alignSelf: 'stretch',
-        width: undefined,
-        height: undefined
-    },
-    button: {
+    image: {
+        position: 'absolute',
         alignItems: 'center',
         justifyContent: 'center',
         width: Dimensions.get('window').width - 10,
-        height: Dimensions.get('window').height/10,
+        height: Dimensions.get('window').height/8,
     },
 
 });

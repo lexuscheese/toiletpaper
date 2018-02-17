@@ -143,10 +143,11 @@ export default class mainFrag extends React.Component {
                     <Button
                         style={styles.button}
                         title='Search'
-                        // onPress={
-                        //     //TODO:Searching action
-                        //     // () => navigate("Search", {})
-                        // }
+                        onPress={
+                            () => {
+
+                            }
+                        }
                     />
                 </View>
                 {/*<View style={styles.products}>*/}
@@ -207,6 +208,7 @@ export default class mainFrag extends React.Component {
         this.setState({currentPage: currentPage});
         console.log(event.nativeEvent.contentOffset.y);
     };
+
     _onRefresh = () => { //refreash action
         this.setState({isRefreshing: true});
         setTimeout(() => {
