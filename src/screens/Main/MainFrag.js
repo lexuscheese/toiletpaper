@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     searchBar: {
-        marginTop: Platform.OS === 'ios' ? 0 : 0,
+        marginTop: Platform.OS === 'ios' ? 0 : 25,
         height: 40,
         flexDirection: 'row'
     },
