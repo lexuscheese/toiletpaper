@@ -12,6 +12,7 @@ export default class singer extends React.Component<{}> {
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: true,
             date: [],
         }
     }
@@ -26,22 +27,17 @@ export default class singer extends React.Component<{}> {
             body: JSON.stringify({
                     gender: this.props.navigation.state.params.gender,
                 }
-            ).then(ApiUtils.checkStatus).then((response) => {
-                const statusCode = response.status;
-                const data = response.json();
-                return Promise.all([statusCode, data]).then(res => ({
-                    statusCode: res[0],
-                    data: res[1]
-                }));
-            }).then((res) => {
-                const {statusCode, data} = res;
-                console.log("statusCode", statusCode);
-                console.log("data", data);
-                console.warn("data:" +data+ " and statusCode: "+data);
-            }).catch(error => {
-                console.error(error);
-                return {name: "network error", description: ""}
-            })
+            )
+                .then((response) => response.json())
+                .then((response) => {
+                    this.setState({
+                        isLoading: false,
+                    }, function() {
+                        // do something with new state
+                    });
+                }).catch(error => {
+                    console.error(error);
+                })
         });
     }
 
