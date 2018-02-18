@@ -18,28 +18,28 @@ export default class singer extends React.Component<{}> {
     }
 
     componentDidMount() {
-        fetch("http://www.19chord.com/php/get/getSinger.php", {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                    gender: this.props.navigation.state.params.gender,
+        if (this.props.navigation.state.params.gender != null) {
+            var url = "http://www.19chord.com/php/get/getSinger.php";
+            fetch(url, {
+                    method: 'GET',
+                    body: {
+                        gender: this.props.navigation.state.params.gender
+                    },
                 }
             )
                 .then((response) => response.json())
                 .then((response) => {
-                    this.setState({
-                        isLoading: false,
-                    }, function() {
-                        // do something with new state
-                    });
+                    this.setState({isLoading: false,}, function () {
+                            // do something with new state
+                        console.warn("Success");
+                        }
+                    );
                 }).catch(error => {
-                    console.error(error);
-                })
-        });
+                console.error(error);
+            });
+        }
     }
+
 
     render() {
         return (
@@ -50,7 +50,8 @@ export default class singer extends React.Component<{}> {
             </View>
         );
     }
-};
+}
+;
 
 const
     styles = StyleSheet.create({

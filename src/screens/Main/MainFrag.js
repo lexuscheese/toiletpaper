@@ -8,6 +8,8 @@ import {
     Text, TextInput, Alert, RefreshControl,
     View, Dimensions, ListView, Image
 } from 'react-native';
+import Swiper from 'react-native-swiper';
+
 const circleSize = 8;
 const circleMargin = 5;
 
@@ -55,32 +57,31 @@ export default class mainFrag extends React.Component {
                 {
                     url: 'http://www.19chord.com/frontpage/five.JPG'
                 },
-
             ],
             currentPage: 0,
             // dataSource: ds.cloneWithRows([
             //     {
-            //         image: require('../../image/MedRes.jpg'),
+            //         image: require('../../image/MedRes.JPG'),
             //         title: 'Product 1',
             //         subtitle: 'Detail 1'
             //     },
             //     {
-            //         image: require('../../image/MedRes.jpg'),
+            //         image: require('../../image/MedRes.JPG'),
             //         title: 'Product 2',
             //         subtitle: 'Detail 2'
             //     },
             //     {
-            //         image: require('../../image/MedRes.jpg'),
+            //         image: require('../../image/MedRes.JPG'),
             //         title: 'Product 3',
             //         subtitle: 'Detail 3'
             //     },
             //     {
-            //         image: require('../../image/MedRes.jpg'),
+            //         image: require('../../image/MedRes.JPG'),
             //         title: 'Product 4',
             //         subtitle: 'Detail 4'
             //     },
             //     {
-            //         image: require('../../image/MedRes.jpg'),
+            //         image: require('../../image/MedRes.JPG'),
             //         title: 'Product 5',
             //         subtitle: 'Detail 5'
             //     }
@@ -92,10 +93,6 @@ export default class mainFrag extends React.Component {
     }
 
     render() {
-        const advertisementCount = this.state.advertisements.length;
-        const indicatorWidth = circleSize * advertisementCount + circleMargin * advertisementCount * 2;
-        const left = (Dimensions.get('window').width - indicatorWidth) / 2;
-        var {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
                 <StatusBar backgroundColor={'#580000'}
@@ -104,37 +101,20 @@ export default class mainFrag extends React.Component {
                 />
 
                 <View style={styles.advertisement}>
-                    <ScrollView
+                    <Swiper
                         ref={"scrollView"}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        pagingEnabled={true}
-                        // onScrollEndDrag={this._handleScroll}
-                        // scrollEventThrottle={16}
-
+                        loop={true}
+                        autoplay={true}
                     >{this.state.advertisements.map((advertisement, index) => {
                         return (
                             <TouchableHighlight
                                 key={index}>
-                                <Image style={styles.advertisementContent}
-                                       source={{uri: advertisement.url}}/>
+                                <Image
+                                    style={styles.advertisementContent}
+                                    source={{uri: advertisement.url}}/>
                             </TouchableHighlight>
                         );
-                    })}</ScrollView>
-
-                    <View style={[
-                        styles.indicator, {
-                            left: left
-                        }
-                    ]}>
-                        {this.state.advertisements.map((advertisement, index) => {
-                        return (<View
-                            key={index}
-                            style={(index === this.state.currentPage) ? styles.circleSelected : styles.circle}
-                        />);
-                    })}
-
-                    </View>
+                    })}</Swiper>
                 </View>
                 <View style={styles.searchBar}>
                     <TextInput
@@ -164,27 +144,6 @@ export default class mainFrag extends React.Component {
         );
     }
 
-    componentDidMount() {
-        this._startTimer();
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
-
-    _startTimer() {
-        this.interval = setInterval(() => {
-            var nextPage = this.state.currentPage + 1;
-
-            if (nextPage >= this.state.advertisements.length) {
-                nextPage = 0;
-            }
-            this.setState({currentPage: nextPage});
-            const offSetX = nextPage * Dimensions.get('window').width;
-            this.refs.scrollView.scrollResponderScrollTo({x: offSetX, y: 0, animated: true});
-        }, 5000);
-    }
-
     _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
         return (
             <View key={'${sectionID}-${rowID}'} style={styles.divider}/>
@@ -203,25 +162,18 @@ export default class mainFrag extends React.Component {
         )
     }
 
-    _handleScroll(event: Object){
-        const currentPage = event.nativeEvent.contentOffset.y;
-        this.setState({currentPage: currentPage});
-        console.log(event.nativeEvent.contentOffset.y);
-    };
-
     _onRefresh = () => { //refreash action
         this.setState({isRefreshing: true});
         setTimeout(() => {
             const products = Array.from(new Array(10)).map((value, index) =>
                 ({
-                    // image: require('../../image/MedRes.jpg'),
+                    // image: require('../../image/MedRes.JPG'),
                     title: 'new Product ' + index,
                     subtitle: 'new Detail ' + index
                 }));
             this.setState({isRefreshing: false, dataSource: ds.cloneWithRows(products)});
         }, 2000);
     };
-
 };
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
@@ -256,7 +208,10 @@ const styles = StyleSheet.create({
 
     advertisementContent: {
         width: Dimensions.get('window').width,
-        height: 180
+        height: 180,
+        resizeMode: "contain",
+        flex: 1,
+        aspectRatio: 1.5,
     },
     indicator: {
         position: 'absolute',
