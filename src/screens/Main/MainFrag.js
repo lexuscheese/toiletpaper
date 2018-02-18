@@ -43,19 +43,13 @@ export default class mainFrag extends React.Component {
         this.state = {
             advertisements: [
                 {
-                    url: 'http://www.19chord.com/frontpage/one.JPG'
+                    url: 'https://www.gettyimages.no/gi-resources/images/Homepage/Hero/US/SEP2016/prestige-476863311.jpg'
                 },
                 {
-                    url: 'http://www.19chord.com/frontpage/two.JPG'
+                    url: 'https://imagejournal.org/wp-content/uploads/bb-plugin/cache/23466317216_b99485ba14_o-panorama.jpg'
                 },
                 {
-                    url: 'http://www.19chord.com/frontpage/three.JPG'
-                },
-                {
-                    url: 'http://www.19chord.com/frontpage/four.JPG'
-                },
-                {
-                    url: 'http://www.19chord.com/frontpage/five.JPG'
+                    url: 'http://demo.qodeinteractive.com/passage/wp-content/uploads/2013/07/revolution-05-center.jpg'
                 },
             ],
             currentPage: 0,
@@ -208,10 +202,7 @@ const styles = StyleSheet.create({
 
     advertisementContent: {
         width: Dimensions.get('window').width,
-        height: 180,
-        resizeMode: "contain",
-        flex: 1,
-        aspectRatio: 1.5,
+        height: 180
     },
     indicator: {
         position: 'absolute',
