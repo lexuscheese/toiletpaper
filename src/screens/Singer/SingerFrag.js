@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 
 export default class singerFrag extends React.Component {
+
+
     constructor(props) {
         super(props);
         this.state = {
@@ -33,7 +35,7 @@ export default class singerFrag extends React.Component {
                     highlight: require("../../assets/images/hk_groupgrey.png"),
                 },
             ]
-        }
+        };
     }
 
 
