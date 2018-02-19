@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import ApiUtils from "../../utils/apiUtils";
 
+const SERVER_URL = "http://www.19chord.com";
 
 export default class singer extends React.Component<{}> {
     static navigationOptions;
@@ -16,31 +17,31 @@ export default class singer extends React.Component<{}> {
         super(props);
         this.state = {
             isLoading: true,
-            date: [],
+            data: [],
         };
         switch (this.props.navigation.state.params.gender) {
             case 'M':
-                this.navigationOptions ={
+                this.navigationOptions = {
                     title: "男歌手"
                 };
                 break;
             case 'F':
-                this.navigationOptions ={
+                this.navigationOptions = {
                     title: "女歌手"
                 };
                 break;
             case 'B':
-                this.navigationOptions ={
+                this.navigationOptions = {
                     title: "樂隊"
                 };
                 break;
             case 'G':
-                this.navigationOptions ={
+                this.navigationOptions = {
                     title: "組合"
                 };
                 break;
             default:
-                this.navigationOptions ={
+                this.navigationOptions = {
                     title: "null"
                 };
         }
@@ -48,18 +49,22 @@ export default class singer extends React.Component<{}> {
 
     componentDidMount() {
         if (this.props.navigation.state.params.gender != null) {
-            var url = "http://www.19chord.com/php/get/getSinger.php?gender=" + this.props.navigation.state.params.gender;
-            fetch(url)
-                // .then((response) => response.json())
+            var url = SERVER_URL + "/php/get/getSinger.php?gender=" + this.props.navigation.state.params.gender;
+            const req = new Request(url, {method: 'GET'});
+            return fetch(req)
+                .then((response) => response.json())
                 .then((response) => {
-                    this.setState({isLoading: false,}, function () {
+                    this.setState({
+                            isLoading: false,
+                            date: response,
+                        }, function () {
                             // do something with new state
-                            console.warn("Success："+response.toString()+"/n in "+ url);
+                            console.warn("Success：" + JSON.stringify(response) + " in " + req.toString());
                         }
                     );
                 }).catch(error => {
-                console.error(error);
-            });
+                    console.error(error);
+                });
         }
     }
 

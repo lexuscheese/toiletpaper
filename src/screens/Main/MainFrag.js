@@ -138,6 +138,14 @@ export default class mainFrag extends React.Component {
         );
     }
 
+    componentDidMount() {
+        if (Platform.OS === 'android') {
+            setTimeout(() => {
+                this.setState({ visiableSwiper: true })
+            }, 0)
+        }
+    }
+
     _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
         return (
             <View key={'${sectionID}-${rowID}'} style={styles.divider}/>
