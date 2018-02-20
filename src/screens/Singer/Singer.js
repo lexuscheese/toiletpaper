@@ -2,14 +2,14 @@
 
 import React from 'react';
 import {
-    View,
+    View, ListView,
     Text, StyleSheet, TouchableHighlight, Image, ImageBackground, Dimensions,
 } from 'react-native';
 import GridView from 'react-native-gridview';
 import api from '../../utils/apiUtils';
 
 
-const ds = new GridView.DataSource({
+const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2,
 });
 
@@ -21,14 +21,8 @@ export default class singer extends React.Component<{}> {
         super(props);
         this.state = {
             isLoading: true,
-            data: [],
-            singer: {
-                id: "0001",
-                singer_zh: "Eason Chan|陳奕訊",
-                singer_ed: "Eason Chan",
-                src: "http:/www.19chord.com/hk_pic/Eason_Chan.png",
-                gender: "M",
-            }
+            singer: ds,
+
         };
         switch (this.props.navigation.state.params.gender) {
             case 'M':
@@ -63,7 +57,7 @@ export default class singer extends React.Component<{}> {
             api.getSinger(this.props.navigation.state.params.gender).then((res) => {
                 this.setState({
                         isLoading: false,
-                        data: res,
+                        singer: ds.cloneWithRows(res),
                     }
                 );
             }).catch(error => {
@@ -72,44 +66,40 @@ export default class singer extends React.Component<{}> {
         }
     }
 
-    _renderItem(item, sectionID, rowID, itemIndex, itemID) {
+    _renderRow = (rowData) => {
         return (
             <TouchableHighlight
                 key={null}
-                style={styles.button}
+                style={styles.item}
                 onPress={
                     () => {
-                        console.warn("success: " + this.state.data.id)
+                        const singer = rowData.singer_en;
+                        console.log("Pressed singer: " + singer);
+                        this.props.navigation.navigate("SongList", {singer},);
                     }
                 }>
                 <ImageBackground
                     resizeMode="contain"
-                    style={styles.container}
-                    source={{url: this.state.singer.src}}>
+                    style={styles.image}
+                    source={{url: rowData.src}}>
                     <Text style={styles.text}>
-                        {this.state.singer.singer_zh}
+                        {rowData.singer_zh}
                     </Text>
                 </ImageBackground>
             </TouchableHighlight>
         );
-    }
+    };
+
 
 
     render() {
-        console.log("Data: ", this.state.data);
+        console.log("Data: ", this.state.singer);
         return (
             <View style={styles.container}>
-                {/*<GridView*/}
-                    {/*dataSource={this.state.data}*/}
-                    {/*itemsPerRow={2}*/}
-                    {/*renderItem={(item, sectionID, rowID, itemIndex, itemID) => {*/}
-                        {/*return (*/}
-                            {/*<View style={{flex: 1, backgroundColor: '#8F8', borderWidth: 1}}>*/}
-                                {/*<Text>{`${item} (${sectionID}-${rowID}-${itemIndex}-${itemID})`}</Text>*/}
-                            {/*</View>*/}
-                        {/*);*/}
-                    {/*}}*/}
-                {/*/>*/}
+                <ListView
+                    dataSource={this.state.singer}
+                    renderRow={this._renderRow}
+                />
             </View>
         );
     }
@@ -118,10 +108,14 @@ export default class singer extends React.Component<{}> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
-    button: {
+    listRowContent: {
+        justifyContent: 'center',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
+    item: {
+        margin: 10,
         borderColor: 'gray',
         borderWidth: 2,
         borderRadius: 10,
@@ -131,10 +125,18 @@ const styles = StyleSheet.create({
     image: {
         width: Dimensions.get('window').width / 2,
         height: 200,
+    }, productText: {
+        height:20,
+        width:50,
+        flex: 1,
+        marginLeft: 5,
+        marginTop: 10,
+        marginBottom: 10
     },
     text: {
         color: "white"
     }
+
 });
 
 

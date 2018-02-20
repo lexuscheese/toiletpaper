@@ -12,6 +12,7 @@ import studentFrag from "../Other/StudentFrag";
 import mainFrag from "./MainFrag";
 import singer from "../Singer/Singer";
 import MyGrid from "../Other/mygrid";
+import song from "../Song/Song";
 
 
 class MainScreen extends Component {
@@ -45,6 +46,7 @@ const AppTabNavigator = TabNavigator({
 
                     }},
                 SingerList:{screen:singer},
+                SongList:{screen:song}
             }),
             navigationOptions: {
                 title: '歌手選曲',
