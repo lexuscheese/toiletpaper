@@ -3,17 +3,35 @@
 import React, {Component} from 'react';
 import {
     Button, StatusBar,
-    Platform, ScrollView,
+    Platform,
     StyleSheet, TouchableHighlight,
     Text, TextInput, Alert, RefreshControl,
     View, Dimensions, ListView, Image
 } from 'react-native';
 import Banner, {IndicaterAlign, IndicaterType} from 'react-native-whc-banner';
-const {
-    width = 0,
-} = Dimensions.get('window');
 
 export default class mainFrag extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            advertisements: [
+                {
+                    title: "Banner 1",
+                    uri: 'http://www.19chord.com/frontpage/one.JPG',
+                },
+                {
+                    title: "Banner 2",
+                    uri: 'http://www.19chord.com/frontpage/two.JPG',
+                },
+                {
+                    title: "Banner 3",
+                    uri: 'http://www.19chord.com/frontpage/three.JPG'
+                },
+            ],
+
+        };
+    }
+
 
     render() {
         return (
@@ -24,30 +42,22 @@ export default class mainFrag extends React.Component {
                 />
 
                 <Banner style={styles.banner}
-                        indicaterType={IndicaterType.number_title}
-                        indicaterAlign={IndicaterAlign.right}
-                        titles={['react-native banner', 'ios native banner', 'android native banner']}
+                        indicaterType={IndicaterType.dot}
+                        indicaterAlign={IndicaterAlign.center}
                         autoLoop={true}
                         autoPlay={true}
+                        height={200}
                         duration={1500}>
-                    <TouchableHighlight onPress={() => {
-                        Alert.alert('banner2')
-                    }}>
-                        <Image style={{width: 200, height: 200}} source={{uri: 'http://www.19chord.com/frontpage/three.JPG'}}
-                               />
-                    </TouchableHighlight>
-                    <TouchableHighlight onPress={() => {
-                        Alert.alert('banner1')
-                    }}>
-                        <Image style={{width: 200, height: 200}} source={{uri: 'http://www.19chord.com/frontpage/two.JPG'}}
-                               />
-                    </TouchableHighlight>
-                    <TouchableHighlight onPress={() => {
-                        Alert.alert('banner3')
-                    }}>
-                        <Image style={{width: 200, height: 200}} source={{uri: 'http://www.19chord.com/frontpage/one.JPG'}}
-                               resizeMode={'stretch'}/>
-                    </TouchableHighlight>
+                    {this.state.advertisements.map((advertisement, index) => {
+                        return (
+                            <TouchableHighlight
+                                key={null} onPress={() => {
+                                Alert.alert(advertisement.title)
+                            }}>
+                                <Image style={styles.image} source={{uri: advertisement.uri}}/>
+                            </TouchableHighlight>
+                        );
+                    })}
                 </Banner>
 
                 <View style={styles.searchBar}>
@@ -66,7 +76,8 @@ export default class mainFrag extends React.Component {
                 </View>
             </View>
         );
-    }}
+    }
+}
 
 
 const styles = StyleSheet.create({
@@ -74,7 +85,6 @@ const styles = StyleSheet.create({
         flex: 1
     },
     searchBar: {
-        marginTop: Platform.OS === 'ios' ? 0 : 25,
         height: 40,
         flexDirection: 'row'
     },
@@ -92,8 +102,13 @@ const styles = StyleSheet.create({
     view: {
         flex: 1,
     },
+    image: {
+        width: Dimensions.get('window').width,
+        height: 200,
+        resizeMode: 'contain',
+    },
     banner: {
-        marginTop:1,
+        marginTop: Platform.OS === 'ios' ? 0 : 25,
         flexGrow: 1,
     },
 
