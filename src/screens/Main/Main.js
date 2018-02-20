@@ -11,6 +11,7 @@ import savedSongFrag from "../SavedSong/SavedSongFrag";
 import studentFrag from "../Other/StudentFrag";
 import mainFrag from "./MainFrag";
 import singer from "../Singer/Singer";
+import MyGrid from "../Other/mygrid";
 
 
 class MainScreen extends Component {

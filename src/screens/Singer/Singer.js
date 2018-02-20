@@ -3,11 +3,15 @@
 import React from 'react';
 import {
     View,
-    Text, StyleSheet,
+    Text, StyleSheet, TouchableHighlight, Image, ImageBackground, Dimensions,
 } from 'react-native';
-import ApiUtils from "../../utils/apiUtils";
+import GridView from 'react-native-gridview';
+import api from '../../utils/apiUtils';
 
-const SERVER_URL = "http://www.19chord.com";
+
+const ds = new GridView.DataSource({
+    rowHasChanged: (r1, r2) => r1 !== r2,
+});
 
 export default class singer extends React.Component<{}> {
     static navigationOptions;
@@ -18,6 +22,13 @@ export default class singer extends React.Component<{}> {
         this.state = {
             isLoading: true,
             data: [],
+            singer: {
+                id: "0001",
+                singer_zh: "Eason Chan|陳奕訊",
+                singer_ed: "Eason Chan",
+                src: "http:/www.19chord.com/hk_pic/Eason_Chan.png",
+                gender: "M",
+            }
         };
         switch (this.props.navigation.state.params.gender) {
             case 'M':
@@ -49,47 +60,82 @@ export default class singer extends React.Component<{}> {
 
     componentDidMount() {
         if (this.props.navigation.state.params.gender != null) {
-            var url = SERVER_URL + "/php/get/getSinger.php?gender=" + this.props.navigation.state.params.gender;
-            const req = new Request(url, {method: 'GET'});
-            return fetch(req)
-                .then((response) => response.json())
-                .then((response) => {
-                    this.setState({
-                            isLoading: false,
-                            date: response,
-                        }, function () {
-                            // do something with new state
-                            console.warn("Success：" + JSON.stringify(response) + " in " + req.toString());
-                        }
-                    );
-                }).catch(error => {
-                    console.error(error);
-                });
+            api.getSinger(this.props.navigation.state.params.gender).then((res) => {
+                this.setState({
+                        isLoading: false,
+                        data: res,
+                    }
+                );
+            }).catch(error => {
+                console.error(error);
+            });
         }
+    }
+
+    _renderItem(item, sectionID, rowID, itemIndex, itemID) {
+        return (
+            <TouchableHighlight
+                key={null}
+                style={styles.button}
+                onPress={
+                    () => {
+                        console.warn("success: " + this.state.data.id)
+                    }
+                }>
+                <ImageBackground
+                    resizeMode="contain"
+                    style={styles.container}
+                    source={{url: this.state.singer.src}}>
+                    <Text style={styles.text}>
+                        {this.state.singer.singer_zh}
+                    </Text>
+                </ImageBackground>
+            </TouchableHighlight>
+        );
     }
 
 
     render() {
+        console.log("Data: ", this.state.data);
         return (
             <View style={styles.container}>
-                <Text>
-                    {this.props.navigation.state.params.gender}
-                </Text>
+                {/*<GridView*/}
+                    {/*dataSource={this.state.data}*/}
+                    {/*itemsPerRow={2}*/}
+                    {/*renderItem={(item, sectionID, rowID, itemIndex, itemID) => {*/}
+                        {/*return (*/}
+                            {/*<View style={{flex: 1, backgroundColor: '#8F8', borderWidth: 1}}>*/}
+                                {/*<Text>{`${item} (${sectionID}-${rowID}-${itemIndex}-${itemID})`}</Text>*/}
+                            {/*</View>*/}
+                        {/*);*/}
+                    {/*}}*/}
+                {/*/>*/}
             </View>
         );
     }
-}
-;
+};
 
-const
-    styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-
-    });
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    button: {
+        borderColor: 'gray',
+        borderWidth: 2,
+        borderRadius: 10,
+        height: 80,
+        flexWrap: 'wrap'
+    },
+    image: {
+        width: Dimensions.get('window').width / 2,
+        height: 200,
+    },
+    text: {
+        color: "white"
+    }
+});
 
 
 

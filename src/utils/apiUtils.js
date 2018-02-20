@@ -1,12 +1,12 @@
-var ApiUtils = {
-    checkStatus: function(response) {
-        if (response.ok) {
-            return response;
-        } else {
-            let error = new Error(response.statusText);
-            error.response = response;
-            throw error;
-        }
+const SERVER_URL = "http://www.19chord.com";
+
+var api = {
+    getSinger(gender){
+        var url = SERVER_URL + "/php/get/getSinger.php?gender=" + gender;
+        console.log("fetch url: " + url);
+        return fetch(url).then((res)=> res.json());
     }
 };
-export { ApiUtils as default };
+
+
+module.exports = api;
