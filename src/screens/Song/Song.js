@@ -3,20 +3,21 @@
 import React from 'react';
 import {
     View, ListView,
-    Text, StyleSheet, ImageBackground,
+    Text, StyleSheet, ImageBackground, Image, Dimensions, TouchableHighlight,
 } from 'react-native';
 import api from '../../utils/apiUtils';
 import formatNumber from "../../utils/textUtils";
+
 
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2,
 });
 
 export default class song extends React.Component<{}> {
-    static navigationOptions = {
-        title: ''
-        // , header: null
-    };
+    static navigationOptions = ({ navigation }) => ({
+        title: typeof(navigation.state.params)==='undefined' || typeof(navigation.state.params.title) === 'undefined' ? '': navigation.state.params.title,
+        headerStyle: { backgroundColor: "white" },
+    });
 
     constructor(props) {
         super(props);
@@ -28,8 +29,9 @@ export default class song extends React.Component<{}> {
     };
 
     componentDidMount() {
-        if (this.props.navigation.state.params.singer != null) {
-            api.getSong(this.props.navigation.state.params.singer).then((res) => {
+        this.props.navigation.setParams({ title: this.props.navigation.state.params.rowData.singer_zh });
+        if (this.props.navigation.state.params.rowData.singer_en != null) {
+            api.getSong(this.props.navigation.state.params.rowData.singer_en).then((res) => {
                 this.setState({
                         isLoading: false,
                         song: ds.cloneWithRows(res),
@@ -38,7 +40,7 @@ export default class song extends React.Component<{}> {
             }).catch(error => {
                 console.error(error);
             });
-            api.getSongH(this.props.navigation.state.params.singer).then((res) => {
+            api.getSongH(this.props.navigation.state.params.rowData.singer_en).then((res) => {
                 this.setState({
                         isLoading: false,
                         songH: ds.cloneWithRows(res),
@@ -55,10 +57,10 @@ export default class song extends React.Component<{}> {
         console.log("SongH: ", this.state.songH);
         return (
             <View style={styles.container}>
-                <View style={{alignSelf:'flex-end'}}>
-                    <Text style={{flexWrap:"wrap"}}>
-                    最新歌曲
-                </Text>
+                <View style={{alignSelf: 'flex-end', backgroundColor: 'white'}}>
+                    <Text style={{flexWrap: "wrap",}}>
+                        最新歌曲|Latest Songs
+                    </Text>
                 </View>
                 <View style={styles.songListH}>
                     <ListView
@@ -79,9 +81,25 @@ export default class song extends React.Component<{}> {
     _renderRowH = (rowData) => {
         return (
             <View style={styles.songH}>
-                <ImageBackground
-                    style={styles.imageH}
-                    source={require("../../assets/images/hotsong.png")}>
+                <Image
+                    style={{
+                        position: 'absolute', left: 0, right: 0, top: 0, bottom: 0,
+                        width: undefined,
+                        height: undefined,
+                        resizeMode: 'cover',
+                    }}
+                    source={require("../../assets/images/hotsong.png")}/>
+                <TouchableHighlight style={styles.container}
+                                    onPress={()=>{
+                                        const id = rowData.id;
+                                        console.log("Pressed song: " + id);
+                                        this.props.navigation.navigate("Chord", {id},);
+                                    }}>
+                <View style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}>
                     <View
                         style={styles.titleH}>
                         <Text style={styles.titleTextH}>
@@ -100,7 +118,8 @@ export default class song extends React.Component<{}> {
                             {rowData.okey}
                         </Text>
                     </View>
-                </ImageBackground>
+                </View>
+                </TouchableHighlight>
             </View>
 
         );
@@ -109,7 +128,55 @@ export default class song extends React.Component<{}> {
 
     _renderRow = (rowData) => {
         return (
-            <View/>
+            <View style={styles.song}>
+                <Image
+                    style={{
+                        position: 'absolute', left: 0, right: 0, top: 0, bottom: 0,
+                        width: undefined,
+                        height: undefined,
+                        resizeMode: 'cover',
+                    }}
+                    source={require("../../assets/images/girl_plate.png")}
+                />
+                <TouchableHighlight style={styles.container}
+                onPress={()=>{
+                    const id = rowData.id;
+                    console.log("Pressed song: " + id);
+                    this.props.navigation.navigate("Chord", {id},);
+                }}>
+                    <View style={{
+                        flexDirection: "row",
+                        flex: 1,
+                    }}>
+                        <Image
+                            style={{flex: 1, resizeMode: 'contain', alignSelf: 'stretch',}}
+                            source={require("../../assets/images/ic_guitar.png")}
+                        />
+
+
+                        <View style={styles.title}>
+                            <Text style={styles.titleTextH}>
+                                {rowData.song}
+                            </Text>
+                            <Text style={styles.titleTextH}>
+                                {rowData.okey} ({rowData.years})
+                            </Text>
+                        </View>
+
+                        <View style={styles.content}>
+                            <Text
+                                style={styles.contentTextH}>
+                                作曲家: {rowData.composer}
+                            </Text>
+                            <Text
+                                style={styles.contentTextH}>
+                                填詞人:{rowData.lyricist}
+                            </Text>
+                        </View>
+
+                    </View>
+                </TouchableHighlight>
+            </View>
         );
     };
 
@@ -123,46 +190,64 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     songListH: {
-        height: 180,
-
+        flex: 3,
     },
     songList: {
-        flex: 1,
+        flex: 5,
+        width: Dimensions.get('window').width
     },
     songH: {
         width: 100,
         margin: 10,
+        borderColor: "gray",
+        borderRadius: 10,
+        borderWidth: 2,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    song: {
+        flex: 1,
+        height: 60,
+        margin: 5,
         alignItems: "center",
         justifyContent: "center",
-        borderColor:"gray",
+        borderColor: "gray",
         borderRadius: 10,
-        borderWidth:2
+        borderWidth: 2,
     },
-    imageH: {
+    imageH: {},
+    title: {
+        flex: 2,
+        justifyContent: "center",
+        alignContent: "center",
+    },
+    content: {
+        flex: 2,
+        alignItems: "center",
+        justifyContent: "center",
     },
     titleH: {
         flex: 1,
         justifyContent: "center",
-        alignItems: "flex-end",
+        alignContent: "center",
     },
     contentH: {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
     },
-
-
-    song: {},
     titleTextH: {
-        justifyContent: "center",
+        alignContent: "center",
         fontSize: formatNumber(14),
-        color:"white"
+        color: "white",
+        flexWrap: 'wrap',
     },
 
     contentTextH: {
         alignContent: "center",
         fontSize: formatNumber(10),
-        color:"white"
+        color: "white",
+        flexWrap: 'wrap',
     }
 
 });

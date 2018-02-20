@@ -67,41 +67,49 @@ export default class singer extends React.Component<{}> {
     }
 
 
-
-
-
     render() {
         console.log("Data: ", this.state.singer);
         return (
             <View style={styles.container}>
                 <ListView
+                    contentContainerStyle={styles.listRowContent}
                     dataSource={this.state.singer}
                     renderRow={this._renderRow}
                 />
             </View>
         );
     }
+
     _renderRow = (rowData) => {
         return (
-            <TouchableHighlight
-                key={null}
-                style={styles.item}
-                onPress={
-                    () => {
-                        const singer = rowData.singer_en;
-                        console.log("Pressed singer: " + singer);
-                        this.props.navigation.navigate("SongList", {singer},);
-                    }
-                }>
-                <ImageBackground
-                    resizeMode="contain"
-                    style={styles.image}
-                    source={{url: rowData.src}}>
-                    <Text style={styles.text}>
-                        {rowData.singer_zh}
-                    </Text>
-                </ImageBackground>
-            </TouchableHighlight>
+            <View style={styles.item}>
+                <TouchableHighlight
+                    key={null}
+                    style={styles.container}
+                    onPress={
+                        () => {
+                            const singer = rowData.singer_en;
+                            console.log("Pressed singer: " + singer);
+                            this.props.navigation.navigate("SongList", {rowData},);
+                        }
+                    }>
+                    <View style={{ flex:1,alignItems: "center",
+                        justifyContent: "center",borderColor: 'gray',
+                        borderWidth: 2,
+                        borderRadius: 10,}}>
+                        <Image
+                            resizeMode="cover"
+                            style={styles.image}
+                            source={{url: rowData.src}}/>
+                        <View style={{ flex:1,alignItems: "center",
+                            justifyContent: "center",}}>
+                            <Text style={styles.text}>
+                                {rowData.singer_zh}
+                            </Text>
+                        </View>
+                    </View>
+                </TouchableHighlight>
+            </View>
         );
     };
 };
@@ -111,24 +119,23 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     listRowContent: {
-        justifyContent: 'center',
         flexDirection: 'row',
         flexWrap: 'wrap'
     },
     item: {
-        margin: 10,
-        borderColor: 'gray',
-        borderWidth: 2,
-        borderRadius: 10,
+        margin: 5,
+        flexWrap: 'wrap',
+        width: Dimensions.get('window').width / 2-10,
         height: 80,
-        flexWrap: 'wrap'
     },
     image: {
-        width: Dimensions.get('window').width / 2,
-        height: 200,
+        position: 'absolute', left: 0, right: 0, top: 0, bottom: 0,
+        width: undefined,
+        height: undefined,
+        resizeMode: 'cover',
     }, productText: {
-        height:20,
-        width:50,
+        height: 20,
+        width: 50,
         flex: 1,
         marginLeft: 5,
         marginTop: 10,
