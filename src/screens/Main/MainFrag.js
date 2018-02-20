@@ -52,7 +52,7 @@ export default class mainFrag extends React.Component {
                         return (
                            // <TouchableHighlight
                              //   key={advertisement.uri} onPress={() => {
-                               // Alert.alert(advertisement.title)
+                             //   Alert.alert(advertisement.title)
                            // }}>
                                 <Image style={styles.image} source={{uri: advertisement.uri}}/>
                             // </TouchableHighlight>

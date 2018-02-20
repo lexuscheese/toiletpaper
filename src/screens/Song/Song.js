@@ -180,7 +180,9 @@ export default class song extends React.Component<{}> {
         );
     };
 
-
+    componentWillUnmount(){
+        this.setState({song:undefined,songHL:undefined});
+    }
 };
 
 const styles = StyleSheet.create({

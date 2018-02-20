@@ -2,11 +2,12 @@
 
 import React from 'react';
 import {
-    View, ListView,
+    View, ListView,Alert,
     Text, StyleSheet, TouchableHighlight, Image, ImageBackground, Dimensions,
 } from 'react-native';
 import GridView from 'react-native-gridview';
 import api from '../../utils/apiUtils';
+import {NavigationActions} from "react-navigation";
 
 
 const ds = new ListView.DataSource({
@@ -14,7 +15,11 @@ const ds = new ListView.DataSource({
 });
 
 export default class singer extends React.Component<{}> {
-    static navigationOptions;
+    static navigationOptions = ({navigation}) => ({
+        title: typeof(navigation.state.params) === 'undefined' || typeof(navigation.state.params.title) === 'undefined' ? '' : navigation.state.params.title,
+        headerStyle: {backgroundColor: "white"},
+    });
+
 
 
     constructor(props) {
@@ -22,34 +27,31 @@ export default class singer extends React.Component<{}> {
         this.state = {
             isLoading: true,
             singer: ds,
-
         };
+        this.setTitle();
+    }
+
+    setTitle() {
+        let title = "";
         switch (this.props.navigation.state.params.gender) {
             case 'M':
-                this.navigationOptions = {
-                    title: "男歌手"
-                };
+                title = "男歌手";
                 break;
             case 'F':
-                this.navigationOptions = {
-                    title: "女歌手"
-                };
+                title = "女歌手";
                 break;
             case 'B':
-                this.navigationOptions = {
-                    title: "樂隊"
-                };
+                title = "樂隊";
                 break;
             case 'G':
-                this.navigationOptions = {
-                    title: "組合"
-                };
+                title = "組合";
                 break;
             default:
                 this.navigationOptions = {
                     title: "null"
                 };
         }
+        this.props.navigation.setParams({title: title});
     }
 
     componentDidMount() {
@@ -61,7 +63,9 @@ export default class singer extends React.Component<{}> {
                     }
                 );
             }).catch(error => {
-                console.error(error);
+                this.props.navigation.dispatch(NavigationActions.back());
+                Alert.alert("請再試！",null,null);
+                console.log(error);
             });
         }
     }
@@ -93,16 +97,20 @@ export default class singer extends React.Component<{}> {
                             this.props.navigation.navigate("SongList", {rowData},);
                         }
                     }>
-                    <View style={{ flex:1,alignItems: "center",
-                        justifyContent: "center",borderColor: 'gray',
+                    <View style={{
+                        flex: 1, alignItems: "center",
+                        justifyContent: "center", borderColor: 'gray',
                         borderWidth: 2,
-                        borderRadius: 10,}}>
+                        borderRadius: 10,
+                    }}>
                         <Image
                             resizeMode="cover"
                             style={styles.image}
                             source={{url: rowData.src}}/>
-                        <View style={{ flex:1,alignItems: "center",
-                            justifyContent: "center",}}>
+                        <View style={{
+                            flex: 1, alignItems: "center",
+                            justifyContent: "center",
+                        }}>
                             <Text style={styles.text}>
                                 {rowData.singer_zh}
                             </Text>
@@ -112,6 +120,10 @@ export default class singer extends React.Component<{}> {
             </View>
         );
     };
+
+    componentWillUnmount() {
+        this.setState({singer: null});
+    }
 };
 
 const styles = StyleSheet.create({
@@ -125,7 +137,7 @@ const styles = StyleSheet.create({
     item: {
         margin: 5,
         flexWrap: 'wrap',
-        width: Dimensions.get('window').width / 2-10,
+        width: Dimensions.get('window').width / 2 - 10,
         height: 80,
     },
     image: {

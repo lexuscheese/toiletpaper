@@ -4,7 +4,7 @@ import React from 'react';
 import {
     View,
     Text, StyleSheet, Image, Button,
-    TouchableHighlight,Dimensions,ImageBackground,
+    TouchableHighlight, Dimensions, ImageBackground,
 } from 'react-native';
 
 export default class singerFrag extends React.Component {
@@ -13,7 +13,7 @@ export default class singerFrag extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            link: [
+            src: [
                 {
                     gender: "M",
                     pic: require("../../assets/images/hk_malegrey.png"),
@@ -39,55 +39,65 @@ export default class singerFrag extends React.Component {
     }
 
 
-
     render() {
         return (
-            <ImageBackground
-                source={require('../../assets/images/singer.jpg')}
-                style={styles.container}>
+            <View style={styles.container}>
+                <Image
+                    source={require('../../assets/images/singer.jpg')}
+                    style={styles.backg}/>
 
-                {this.state.link.map((link, index) => {
+                {this.state.src.map((link, index) => {
                     return (
-                        <TouchableHighlight
-                            key={index}
-                            style={styles.button}
-                            onPress={
-                                ()=>{
-                                    const gender = link.gender;
-                                    console.log("Pressed Gender: "+gender);
-                                    this.props.navigation.navigate("SingerList", {gender},);
-                                }
-                            }>
-                            <Image
-                                resizeMode="contain"
-                                style={styles.image}
-                                source={link.pic}/>
-                        </TouchableHighlight>
+                        <View key={index}
+                              style={styles.container_2}>
+                            <TouchableHighlight
+                                style={styles.button}
+                                onPress={
+                                    () => {
+                                        const gender = link.gender;
+                                        console.log("Pressed Gender: " + gender);
+                                        this.props.navigation.navigate("SingerList", {gender},);
+                                    }
+                                }>
+                                <Image
+                                    style={styles.image}
+                                    source={link.pic}/>
+                            </TouchableHighlight>
+                        </View>
                     );
                 })}
-            </ImageBackground>
+
+            </View>
         );
     }
 };
 
 
 const styles = StyleSheet.create({
+    backg: {
+        position: 'absolute', left: 0, right: 0, top: 0, bottom: 0,
+        width: undefined,
+        height: undefined,
+        resizeMode: 'cover',
+    },
     container: {
         flex: 1,
-        justifyContent:'space-around',
+        justifyContent: 'space-around',
+        alignContent: "center",
     },
-    button:{
-        flex:1,
-        alignItems: 'stretch',
+    container_2: {
+        flex: 1,
+    },
+    button: {
+        flex: 1,
+        margin:15,
         justifyContent: 'center',
-
+        alignContent: "center",
     },
     image: {
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: Dimensions.get('window').width - 10,
-        height: Dimensions.get('window').height/8,
+        flex: 1,
+        aspectRatio: 3,
+        resizeMode: "contain",
     },
 
 });
