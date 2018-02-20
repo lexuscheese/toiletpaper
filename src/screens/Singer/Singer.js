@@ -66,29 +66,7 @@ export default class singer extends React.Component<{}> {
         }
     }
 
-    _renderRow = (rowData) => {
-        return (
-            <TouchableHighlight
-                key={null}
-                style={styles.item}
-                onPress={
-                    () => {
-                        const singer = rowData.singer_en;
-                        console.log("Pressed singer: " + singer);
-                        this.props.navigation.navigate("SongList", {singer},);
-                    }
-                }>
-                <ImageBackground
-                    resizeMode="contain"
-                    style={styles.image}
-                    source={{url: rowData.src}}>
-                    <Text style={styles.text}>
-                        {rowData.singer_zh}
-                    </Text>
-                </ImageBackground>
-            </TouchableHighlight>
-        );
-    };
+
 
 
 
@@ -103,6 +81,29 @@ export default class singer extends React.Component<{}> {
             </View>
         );
     }
+    _renderRow = (rowData) => {
+        return (
+            <TouchableHighlight
+                key={null}
+                style={styles.item}
+                onPress={
+                    () => {
+                        const singer = rowData.singer_en;
+                        console.log("Pressed singer: " + singer);
+                        this.props.navigation.navigate("Chord", {singer},);
+                    }
+                }>
+                <ImageBackground
+                    resizeMode="contain"
+                    style={styles.image}
+                    source={{url: rowData.src}}>
+                    <Text style={styles.text}>
+                        {rowData.singer_zh}
+                    </Text>
+                </ImageBackground>
+            </TouchableHighlight>
+        );
+    };
 };
 
 const styles = StyleSheet.create({
