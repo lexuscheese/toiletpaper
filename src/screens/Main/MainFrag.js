@@ -50,12 +50,12 @@ export default class mainFrag extends React.Component {
                         duration={1500}>
                     {this.state.advertisements.map((advertisement, index) => {
                         return (
-                            <TouchableHighlight
-                                key={null} onPress={() => {
-                                Alert.alert(advertisement.title)
-                            }}>
+                           // <TouchableHighlight
+                             //   key={advertisement.uri} onPress={() => {
+                               // Alert.alert(advertisement.title)
+                           // }}>
                                 <Image style={styles.image} source={{uri: advertisement.uri}}/>
-                            </TouchableHighlight>
+                            // </TouchableHighlight>
                         );
                     })}
                 </Banner>

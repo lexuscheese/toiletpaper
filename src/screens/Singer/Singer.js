@@ -90,7 +90,7 @@ export default class singer extends React.Component<{}> {
                     () => {
                         const singer = rowData.singer_en;
                         console.log("Pressed singer: " + singer);
-                        this.props.navigation.navigate("Chord", {singer},);
+                        this.props.navigation.navigate("SongList", {singer},);
                     }
                 }>
                 <ImageBackground

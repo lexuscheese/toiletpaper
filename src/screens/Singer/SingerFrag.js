@@ -74,11 +74,13 @@ export default class singerFrag extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent:'space-around',
     },
     button:{
         flex:1,
         alignItems: 'stretch',
         justifyContent: 'center',
+
     },
     image: {
         position: 'absolute',
