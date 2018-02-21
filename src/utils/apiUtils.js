@@ -16,6 +16,12 @@ var api = {
         console.log("fetch url: " + url);
         return fetch(url).then((res)=> res.json());
     },
+    getChord(id){
+        var url = SERVER_URL + "/php/get/getChord.php?id=" + id;
+        console.log("fetch url: " + url);
+        return fetch(url).then((res)=> res.json());
+    }
+
 };
 
 

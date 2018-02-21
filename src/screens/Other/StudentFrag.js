@@ -5,6 +5,7 @@ import {
     View, Image, TouchableHighlight,
     Text, StyleSheet,
 } from 'react-native';
+import {Linking} from "react-navigation";
 
 export default class studentFrag extends React.Component<{}> {
     constructor(props) {
@@ -44,7 +45,7 @@ export default class studentFrag extends React.Component<{}> {
                 title: "facebook",
                 scr: require("../../assets/images/facebook.png"),
                 highlight: require("../../assets/images/fb_red.png"),
-                url: "https://www.facebook.com/anthelionmusic/",
+                url: "https://www.facebook.com/n/anthelionmusic/",
                 package: "android.intent.action.VIEW",
             },
         }
@@ -56,29 +57,60 @@ export default class studentFrag extends React.Component<{}> {
             <View style={styles.container}>
                 <Image source={require('../../assets/images/classroom.jpg')} style={styles.backgroundImage}/>
                 <View style={styles.firstColumn}>
-                    <TouchableHighlight style={styles.button}>
+
+                    <TouchableHighlight //Instagram
+                        style={styles.button}
+                        onPress={()=>{
+                            Linking.openURL(this.state.ig.url_2);
+                        }}>
                         <Image
                             source={this.state.ig.highlight}
                             style={styles.image}/>
                     </TouchableHighlight>
-                    <TouchableHighlight style={styles.button}>
+
+
+                    <TouchableHighlight //Website
+                        style={styles.button}
+                        onPress={()=>{
+                            Linking.openURL(this.state.web.url);
+                        }}>
                         <Image
                             source={this.state.web.highlight}
                             style={styles.image}/>
                     </TouchableHighlight>
-                    <TouchableHighlight style={styles.button}>
+
+
+                    <TouchableHighlight //Whatsapp
+                        style={styles.button}
+                        onPress={()=>{
+
+                        }}>
                         <Image
                             source={this.state.whatsapp.highlight}
                             style={styles.image}/>
                     </TouchableHighlight>
+
+
                 </View>
                 <View style={styles.secondColumn}>
-                    <TouchableHighlight style={styles.button}>
+
+
+                    <TouchableHighlight //youtube
+                        style={styles.button}
+                        onPress={()=>{
+                            Linking.openURL(this.state.youtube.url);
+                        }}>
                         <Image
                             source={this.state.youtube.highlight}
                             style={styles.image}/>
                     </TouchableHighlight>
-                    <TouchableHighlight style={styles.button}>
+
+
+                    <TouchableHighlight //facebook
+                        style={styles.button}
+                        onPress={()=>{
+                            Linking.openURL(this.state.facebook.url);
+                        }}>
                         <Image
                             source={this.state.facebook.highlight}
                             style={styles.image}/>
