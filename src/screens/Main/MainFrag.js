@@ -6,7 +6,7 @@ import {
     Platform,
     StyleSheet, TouchableHighlight,
     Text, TextInput, Alert, RefreshControl,
-    View, Dimensions, ListView, Image
+    View, Dimensions, ListView, Image, ScrollView
 } from 'react-native';
 import Banner, {IndicaterAlign, IndicaterType} from 'react-native-whc-banner';
 
@@ -17,7 +17,7 @@ export default class mainFrag extends React.Component {
             advertisements: [
                 {
                     title: "Banner 1",
-                    uri: 'http://www.19chord.com/frontpage/one.JPG',
+                    url: 'https://www.gettyimages.no/gi-resources/images/Homepage/Hero/US/SEP2016/prestige-476863311.jpg'
                 },
                 {
                     title: "Banner 2",
@@ -28,7 +28,7 @@ export default class mainFrag extends React.Component {
                     uri: 'http://www.19chord.com/frontpage/three.JPG'
                 },
             ],
-
+            currentPage: 0,
         };
     }
 
@@ -41,24 +41,23 @@ export default class mainFrag extends React.Component {
                            networkActivityIndicatorVisable={true}
                 />
 
-                <Banner style={styles.banner}
-                        indicaterType={IndicaterType.dot}
-                        indicaterAlign={IndicaterAlign.center}
-                        autoLoop={true}
-                        autoPlay={true}
-                        height={200}
-                        duration={1500}>
-                    {this.state.advertisements.map((advertisement, index) => {
+                <View style={styles.advertisement}>
+                    <ScrollView
+                        ref={"scrollView"}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        pagingEnabled={true}
+                    >{this.state.advertisements.map((advertisement, index) => {
                         return (
-                           // <TouchableHighlight
-                             //   key={advertisement.uri} onPress={() => {
-                             //   Alert.alert(advertisement.title)
-                           // }}>
-                                <Image style={styles.image} source={{uri: advertisement.uri}}/>
-                            // </TouchableHighlight>
+                            <TouchableHighlight
+                                key={index}
+                                onPress={() => Alert.alert('You touch', null, null)}>
+                                <Image style={styles.advertisementContent}
+                                       source={{uri: advertisement.url}}/>
+                            </TouchableHighlight>
                         );
-                    })}
-                </Banner>
+                    })}</ScrollView>
+                </View>
 
                 <View style={styles.searchBar}>
                     <TextInput
@@ -76,6 +75,30 @@ export default class mainFrag extends React.Component {
                 </View>
             </View>
         );
+    };
+
+
+    componentDidMount() {
+        this._startTimer();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    _startTimer() {
+        this.interval = setInterval(() => {
+            console.log("Start interval");
+            var nextPage = this.state.currentPage + 1;
+
+             if (nextPage >= this.state.advertisements.length) {
+                nextPage = 0;
+                console.log("Max. page over")
+            }
+            this.setState({currentPage: nextPage});
+            const offSetX = nextPage * Dimensions.get('window').width;
+            this.refs.scrollView.scrollResponderScrollTo({x: offSetX, y: 0, animated: true});
+        }, 5000);
     }
 }
 
@@ -102,14 +125,16 @@ const styles = StyleSheet.create({
     view: {
         flex: 1,
     },
-    image: {
+    advertisementContent: {
+        flex: 1,
         width: Dimensions.get('window').width,
+        resizeMode: 'cover',
         height: 200,
-        resizeMode: 'contain',
     },
-    banner: {
+    advertisement: {
         marginTop: Platform.OS === 'ios' ? 0 : 25,
-        flexGrow: 1,
+        // flexGrow: 1,
+        height: 200,
     },
 
 });

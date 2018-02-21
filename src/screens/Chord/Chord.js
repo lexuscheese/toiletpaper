@@ -7,13 +7,19 @@ import {
 import api from '../../utils/apiUtils';
 import {NavigationActions} from "react-navigation";
 
+const ds = new ListView.DataSource({
+    rowHasChanged: (r1, r2) => r1 !== r2,
+});
+
 export default class chord extends React.Component<{}> {
     constructor(props) {
         super(props);
         this.state = {
-            song:[]
+            song:[],
         };
     };
+
+
 
     componentDidMount() {
         if (this.props.navigation.state.params.id != null) {
@@ -21,11 +27,11 @@ export default class chord extends React.Component<{}> {
                 this.setState({
                         isLoading: false,
                         song: res,
-                    }
-                );
+                    });
+                console.log("Resource: "+res);
             }).catch(error => {
                 this.props.navigation.dispatch(NavigationActions.back());
-                Alert.alert("請再試！",null,null);
+                Alert.alert("請再試！", null, null);
                 console.log(error);
             });
         }
@@ -33,13 +39,13 @@ export default class chord extends React.Component<{}> {
 
 
     render() {
-        console.log("Song Id: "+this.props.navigation.state.params.id);
+        console.log("Song Id: " + this.props.navigation.state.params.id);
         console.log(this.state.song);
         return (
             <View style={styles.container}>
                 <Text>
-                    {}
-                }</Text>
+                    {this.props.navigation.state.params.id}
+                </Text>
             </View>)
     };
 };

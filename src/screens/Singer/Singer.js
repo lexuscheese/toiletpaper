@@ -5,7 +5,6 @@ import {
     View, ListView,Alert,
     Text, StyleSheet, TouchableHighlight, Image, ImageBackground, Dimensions,
 } from 'react-native';
-import GridView from 'react-native-gridview';
 import api from '../../utils/apiUtils';
 import {NavigationActions} from "react-navigation";
 
