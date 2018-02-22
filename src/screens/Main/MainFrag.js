@@ -8,7 +8,7 @@ import {
     Text, TextInput, Alert, RefreshControl,
     View, Dimensions, ListView, Image, ScrollView
 } from 'react-native';
-import ScrollableTabView ,{DefaultTabBar, } from 'react-native-scrollable-tab-view';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 export default class mainFrag extends React.Component {
     constructor(props) {
@@ -73,10 +73,10 @@ export default class mainFrag extends React.Component {
                 </View>
                 <ScrollableTabView
                     style={{marginTop: 20, }}
-                    tabBarUnderlineStyle={{backgroundColor:'black'}}
                     tabBarActiveTextColor='#580000'
                     tabBarInactiveTextColor='grey'
                     tabBarTextStyle={{fontSize:14}}
+                    tabBarUnderlineStyle={styles.lineStyle}
                     >
                     <Text tabLabel='熱門瀏覽'>Tab 1</Text>
                     <Text tabLabel='最新樂譜'>Tab 2</Text>
@@ -144,8 +144,11 @@ const styles = StyleSheet.create({
         // flexGrow: 1,
         height: 200,
     },
-
-
+    lineStyle: {
+        width:Dimensions.get('window').width/2,
+        height: 1,
+        backgroundColor: 'black',
+    },
 
 
 });
