@@ -88,12 +88,11 @@ export default class mainFrag extends React.Component {
 
     _startTimer() {
         this.interval = setInterval(() => {
-            console.log("Start interval");
             var nextPage = this.state.currentPage + 1;
 
              if (nextPage >= this.state.advertisements.length) {
                 nextPage = 0;
-                console.log("Max. page over")
+                // console.log("Max. page over")
             }
             this.setState({currentPage: nextPage});
             const offSetX = nextPage * Dimensions.get('window').width;

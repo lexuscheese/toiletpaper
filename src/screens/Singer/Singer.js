@@ -53,7 +53,7 @@ export default class singer extends React.Component<{}> {
         this.props.navigation.setParams({title: title});
     }
 
-    componentDidMount() {
+    componentWillMount() {
         if (this.props.navigation.state.params.gender != null) {
             api.getSinger(this.props.navigation.state.params.gender).then((res) => {
                 this.setState({

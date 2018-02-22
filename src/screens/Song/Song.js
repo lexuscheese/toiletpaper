@@ -3,10 +3,11 @@
 import React from 'react';
 import {
     View, ListView,
-    Text, StyleSheet, ImageBackground, Image, Dimensions, TouchableHighlight,
+    Text, StyleSheet, ImageBackground, Image, Dimensions, TouchableHighlight, Alert,
 } from 'react-native';
 import api from '../../utils/apiUtils';
 import formatNumber from "../../utils/textUtils";
+import {NavigationActions} from "react-navigation";
 
 
 const ds = new ListView.DataSource({
@@ -47,7 +48,9 @@ export default class song extends React.Component<{}> {
                     }
                 );
             }).catch(error => {
-                console.error(error);
+                this.props.navigation.dispatch(NavigationActions.back());
+                Alert.alert("請再試！", null, null);
+                console.log(error);
             });
         }
     }
@@ -192,15 +195,15 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     songListH: {
-        flex: 3,
+        flex: 1,
     },
     songList: {
-        flex: 5,
+        flex: 2,
         width: Dimensions.get('window').width
     },
     songH: {
         width: 100,
-        margin: 10,
+        margin: 5,
         borderColor: "gray",
         borderRadius: 10,
         borderWidth: 2,
@@ -210,7 +213,7 @@ const styles = StyleSheet.create({
     song: {
         flex: 1,
         height: 60,
-        margin: 5,
+        margin: 2,
         alignItems: "center",
         justifyContent: "center",
         borderColor: "gray",
