@@ -73,7 +73,11 @@ export default class mainFrag extends React.Component {
                 </View>
                 <ScrollableTabView
                     style={{marginTop: 20, }}
-                    renderTabBar={() => <DefaultTabBar/>}>
+                    tabBarUnderlineStyle={{backgroundColor:'black'}}
+                    tabBarActiveTextColor='#580000'
+                    tabBarInactiveTextColor='grey'
+                    tabBarTextStyle={{fontSize:14}}
+                    >
                     <Text tabLabel='熱門瀏覽'>Tab 1</Text>
                     <Text tabLabel='最新樂譜'>Tab 2</Text>
                 </ScrollableTabView>
