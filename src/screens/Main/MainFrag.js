@@ -8,7 +8,7 @@ import {
     Text, TextInput, Alert, RefreshControl,
     View, Dimensions, ListView, Image, ScrollView
 } from 'react-native';
-import Banner, {IndicaterAlign, IndicaterType} from 'react-native-whc-banner';
+import ScrollableTabView ,{DefaultTabBar, } from 'react-native-scrollable-tab-view';
 
 export default class mainFrag extends React.Component {
     constructor(props) {
@@ -58,7 +58,6 @@ export default class mainFrag extends React.Component {
                         );
                     })}</ScrollView>
                 </View>
-
                 <View style={styles.searchBar}>
                     <TextInput
                         style={styles.input}
@@ -68,14 +67,20 @@ export default class mainFrag extends React.Component {
                         title='Search'
                         onPress={
                             () => {
-
-                            }
+                                }
                         }
                     />
                 </View>
-            </View>
+                <ScrollableTabView
+                    style={{marginTop: 20, }}
+                    renderTabBar={() => <DefaultTabBar/>}>
+                    <Text tabLabel='熱門瀏覽'>Tab 1</Text>
+                    <Text tabLabel='最新樂譜'>Tab 2</Text>
+                </ScrollableTabView>
+                </View>
+
         );
-    };
+    }
 
 
     componentDidMount() {
@@ -135,5 +140,8 @@ const styles = StyleSheet.create({
         // flexGrow: 1,
         height: 200,
     },
+
+
+
 
 });

@@ -110,6 +110,7 @@ const Navigation = StackNavigator({
                     false,
                 showIcon:
                     true,
+                animationEnabled: false,
             }
         ),
         navigationOptions: {
