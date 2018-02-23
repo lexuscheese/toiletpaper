@@ -118,9 +118,7 @@ const Navigation = StackNavigator({
         },
     },
     Chord: {
-        screen: chord, navigationOptions: {
-            title: '歌名'
-        }
+        screen: chord
     },
 });
 export default Navigation;

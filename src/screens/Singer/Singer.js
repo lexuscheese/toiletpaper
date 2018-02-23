@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {
-    View, ListView,Alert,
+    View, ListView, Alert,
     Text, StyleSheet, TouchableHighlight, Image, ImageBackground, Dimensions,
 } from 'react-native';
 import api from '../../utils/apiUtils';
@@ -18,7 +18,6 @@ export default class singer extends React.Component<{}> {
         title: typeof(navigation.state.params) === 'undefined' || typeof(navigation.state.params.title) === 'undefined' ? '' : navigation.state.params.title,
         headerStyle: {backgroundColor: "white"},
     });
-
 
 
     constructor(props) {
@@ -63,7 +62,7 @@ export default class singer extends React.Component<{}> {
                 );
             }).catch(error => {
                 this.props.navigation.dispatch(NavigationActions.back());
-                Alert.alert("請再試！",null,null);
+                Alert.alert("請再試！", null, null);
                 console.log(error);
             });
         }
@@ -104,6 +103,7 @@ export default class singer extends React.Component<{}> {
                     }}>
                         <Image
                             resizeMode="cover"
+
                             style={styles.image}
                             source={{url: rowData.src}}/>
                         <View style={{
@@ -138,12 +138,14 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         width: Dimensions.get('window').width / 2 - 10,
         height: 80,
+        overflow: 'hidden',
     },
     image: {
         position: 'absolute', left: 0, right: 0, top: 0, bottom: 0,
         width: undefined,
         height: undefined,
         resizeMode: 'cover',
+        borderRadius: 8,
     }, productText: {
         height: 20,
         width: 50,

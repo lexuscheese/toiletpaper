@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 import {
-    View, ListView,
+    View, ListView, ScrollView,
     Text, StyleSheet, Alert,
 } from 'react-native';
 import api from '../../utils/apiUtils';
@@ -12,20 +12,21 @@ const ds = new ListView.DataSource({
 });
 
 export default class chord extends React.Component<{}> {
+    static navigationOptions = ({ navigation }) => ({
+        title: typeof(navigation.state.params)==='undefined' || typeof(navigation.state.params.title) === 'undefined' ? '': navigation.state.params.title,
+        headerStyle: { backgroundColor: "white" },
+    });
+
     constructor(props) {
         super(props);
         this.state = {
-            song: [],
-            ds:ds,
-            song_temp: [{
-                0: [{
-                    type: "",
-                    id: "dsad",
-                    ds: "sa"
-                }]
+            song: [{
+                chrodsheet: ""
             }],
-
-
+            textsize:15,
+            scrollSpeed:1,
+            oKey:"C",
+            currentKey:"C",
         };
     };
 
@@ -35,9 +36,10 @@ export default class chord extends React.Component<{}> {
             api.getChord(this.props.navigation.state.params.id).then((res) => {
                 this.setState({
                     isLoading: false,
-                    song: this.state.song.concat(res),
-                    ds:ds.cloneWithRows(res),
+                    song: res[0],
+                    oKey: getKey(res[0].okey),
                 });
+                this.props.navigation.setParams({ title: this.state.song.song });
                 console.log("Resource: " + res);
             }).catch(error => {
                 this.props.navigation.dispatch(NavigationActions.back());
@@ -49,29 +51,34 @@ export default class chord extends React.Component<{}> {
 
 
     render() {
+        let result = getChord(this.state.song.chordsheet,this.state.currentKey);
         console.log("Song Id: " + this.props.navigation.state.params.id);
-        console.log("Song: " + this.state.song.value);
-        console.log("ds: " + ds);
-        console.log("Song_temp: " + this.state.song_temp.value);
+        console.log(this.state);
         return (
             <View style={styles.container}>
-                {(() => {
-                    if (this.state.song.chordsheet !== undefined) {
-                        return (
-                            <Text>
-                                {this.state.song.chordsheet}
-                            </Text>
-                        );
-                    }
-                })}
-
-
+                <ScrollView>
+                    <Text>
+                        {result}
+                    </Text>
+                </ScrollView>
             </View>)
     };
 };
 
+function getChord(chord,key){
+    return chord
+}
+
+function getKey(key){
+    return key
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    text:{
+        textAlign: 'justify',
+        lineHeight: 30,
     },
 });

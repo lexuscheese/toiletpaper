@@ -78,8 +78,12 @@ export default class mainFrag extends React.Component {
                     tabBarTextStyle={{fontSize:14}}
                     tabBarUnderlineStyle={styles.lineStyle}
                     >
-                    <Text tabLabel='熱門瀏覽'>Tab 1</Text>
-                    <Text tabLabel='最新樂譜'>Tab 2</Text>
+                    <View tabLabel='熱門瀏覽'>
+                    <Text >Tab 1</Text>
+                    </View>
+                    <View tabLabel='最新樂譜'>
+                    <Text>Tab 2</Text>
+                    </View>
                 </ScrollableTabView>
                 </View>
 

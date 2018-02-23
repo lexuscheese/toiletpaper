@@ -91,6 +91,7 @@ export default class song extends React.Component<{}> {
                         height: undefined,
                         resizeMode: 'cover',
                     }}
+                    borderRadius={8}
                     source={require("../../assets/images/hotsong.png")}/>
                 <TouchableHighlight style={styles.container}
                                     onPress={()=>{
@@ -139,6 +140,7 @@ export default class song extends React.Component<{}> {
                         height: undefined,
                         resizeMode: 'cover',
                     }}
+                    borderRadius={8}
                     source={require("../../assets/images/girl_plate.png")}
                 />
                 <TouchableHighlight style={styles.container}
