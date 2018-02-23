@@ -57,7 +57,8 @@ export default class chord extends React.Component<{}> {
         return (
             <View style={styles.container}>
                 <ScrollView>
-                    <Text>
+                    <Text style={styles.text}
+                          fontSize={12}>
                         {result}
                     </Text>
                 </ScrollView>
@@ -79,6 +80,6 @@ const styles = StyleSheet.create({
     },
     text:{
         textAlign: 'justify',
-        lineHeight: 30,
+        lineHeight: 20,
     },
 });

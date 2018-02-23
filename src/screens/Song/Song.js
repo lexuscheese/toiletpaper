@@ -39,7 +39,9 @@ export default class song extends React.Component<{}> {
                     }
                 );
             }).catch(error => {
-                console.error(error);
+                this.props.navigation.dispatch(NavigationActions.back());
+                Alert.alert("請再試！", null, null);
+                console.log(error);
             });
             api.getSongH(this.props.navigation.state.params.rowData.singer_en).then((res) => {
                 this.setState({

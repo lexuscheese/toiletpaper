@@ -20,8 +20,17 @@ var api = {
         var url = SERVER_URL + "/php/get/getChord.php?id=" + id;
         console.log("fetch url: " + url);
         return fetch(url).then((res)=> res.json());
+    },
+    getLatest(){
+        var url = SERVER_URL + "/php/get/latest.php";
+        console.log("fetch url: " + url);
+        return fetch(url).then((res)=> res.json());
+    },
+    getBrowser(){
+        var url = SERVER_URL + "/php/get/browse.php";
+        console.log("fetch url: " + url);
+        return fetch(url).then((res)=> res.json());
     }
-
 };
 
 
